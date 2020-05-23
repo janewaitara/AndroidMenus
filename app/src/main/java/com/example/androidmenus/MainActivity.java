@@ -3,6 +3,7 @@ package com.example.androidmenus;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.appcompat.widget.PopupMenu;
 
 import android.os.Bundle;
 
@@ -15,14 +16,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     TextView menuTitle;
     Button btnActionModeMenu;
 
-    ActionMode mActionMode;
-
-      //object of the ActionMode class
+    ActionMode mActionMode;//object of the ActionMode class
 
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
         @Override
@@ -163,6 +162,41 @@ public class MainActivity extends AppCompatActivity {
 
             default:
                 return super.onContextItemSelected(item);
+        }
+
+
+    }
+
+    public void showPopupMenu(View view) {
+        PopupMenu mPopupMenu = new PopupMenu(this, view);//object of the PopupMenu class
+        mPopupMenu.setOnMenuItemClickListener(this);
+        mPopupMenu.inflate(R.menu.popup_menu); //inflate using the object
+        mPopupMenu.show();
+
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        //handle contextual floating menu item click
+        switch(item.getItemId()) {
+            case R.id.popupMenuItem1:
+                Toast.makeText(this, " Contextual Menu 1 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.popupMenuItem2:
+                Toast.makeText(this, "Contextual Menu  2 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.popupMenuItem3:
+                Toast.makeText(this, "Contextual Menu  3 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.popupMenuItem4:
+                Toast.makeText(this, "Contextual Menu 4 clicked", Toast.LENGTH_SHORT).show();
+                return true;;+-
+
+            default:
+                return false;
         }
 
 
