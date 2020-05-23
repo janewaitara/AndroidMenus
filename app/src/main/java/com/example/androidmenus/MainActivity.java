@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setContentView(R.layout.activity_main);
 
         menuTitle = findViewById(R.id.menuTitle);
-        this.registerForContextMenu(menuTitle);//long pressing it will help us get the context menu
+        this.registerForContextMenu(menuTitle);//long pressing - it will help us get the context menu
 
         btnActionModeMenu = findViewById(R.id.btnActionModeMenu);
         btnActionModeMenu.setOnLongClickListener(new View.OnLongClickListener() {
@@ -62,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     // handling the onClicks on the menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.isChecked()) item.setChecked(false);
+        else item.setChecked(true); //helps to app to remember what one had selected before
+
         switch(item.getItemId()) {
             case R.id.optionsMenuItem1:
                 Toast.makeText(this, "Menu Item 1 clicked", Toast.LENGTH_SHORT).show();
