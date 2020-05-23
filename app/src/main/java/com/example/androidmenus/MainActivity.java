@@ -16,13 +16,110 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     TextView menuTitle;
     Button btnActionModeMenu;
-
     ActionMode mActionMode;//object of the ActionMode class
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        menuTitle = findViewById(R.id.menuTitle);
+        this.registerForContextMenu(menuTitle);//long pressing it will help us get the context menu
+
+        btnActionModeMenu = findViewById(R.id.btnActionModeMenu);
+        btnActionModeMenu.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if (mActionMode != null) {
+                    return false;
+                }
+
+                mActionMode = startSupportActionMode(mActionModeCallback); //instantiating ActionMode
+                return true;
+            }
+        });
+
+
+    }
+
+    //OPTIONS MENU
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+    // handling the onClicks on the menu
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.optionsMenuItem1:
+                Toast.makeText(this, "Menu Item 1 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.optionsMenuItem2:
+                Toast.makeText(this, "Menu Item 2 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.optionsMenuItem3:
+                Toast.makeText(this, "Menu Item 3 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.optionsMenuItem4:
+                Toast.makeText(this, "Menu Item 4 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    //FLOATING CONTEXTUAL MENU
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.floating_contextual_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        //handle contextual floating menu item click
+        switch(item.getItemId()) {
+            case R.id.contextualFMenuItem1:
+                Toast.makeText(this, " Contextual Menu 1 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.contextualFMenuItem2:
+                Toast.makeText(this, "Contextual Menu  2 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.contextualFMenuItem3:
+                Toast.makeText(this, "Contextual Menu  3 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.contextualFMenuItem4:
+                Toast.makeText(this, "Contextual Menu 4 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+
+
+    }
+
+
+    //ACTION MODE CONTEXTUAL MENU
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -76,97 +173,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        menuTitle = findViewById(R.id.menuTitle);
-        this.registerForContextMenu(menuTitle);//long pressing it will help us get the context menu
-
-        btnActionModeMenu = findViewById(R.id.btnActionModeMenu);
-        btnActionModeMenu.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                if (mActionMode != null) {
-                    return false;
-                }
-
-                mActionMode = startSupportActionMode(mActionModeCallback); //instantiating ActionMode
-                return true;
-            }
-        });
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
-        return true;
-    }
-
-    // handling the onClicks on the menu
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.optionsMenuItem1:
-                Toast.makeText(this, "Menu Item 1 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-
-            case R.id.optionsMenuItem2:
-                Toast.makeText(this, "Menu Item 2 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-
-            case R.id.optionsMenuItem3:
-                Toast.makeText(this, "Menu Item 3 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-
-            case R.id.optionsMenuItem4:
-                Toast.makeText(this, "Menu Item 4 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.floating_contextual_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-
-        //handle contextual floating menu item click
-        switch(item.getItemId()) {
-            case R.id.contextualFMenuItem1:
-                Toast.makeText(this, " Contextual Menu 1 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-
-            case R.id.contextualFMenuItem2:
-                Toast.makeText(this, "Contextual Menu  2 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-
-            case R.id.contextualFMenuItem3:
-                Toast.makeText(this, "Contextual Menu  3 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-
-            case R.id.contextualFMenuItem4:
-                Toast.makeText(this, "Contextual Menu 4 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-
-            default:
-                return super.onContextItemSelected(item);
-        }
-
-
-    }
-
+    //POPUP MENUS
     public void showPopupMenu(View view) {
         PopupMenu mPopupMenu = new PopupMenu(this, view);//object of the PopupMenu class
         mPopupMenu.setOnMenuItemClickListener(this);
@@ -177,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        //handle contextual floating menu item click
+        //handle contextual popup menu item click
         switch(item.getItemId()) {
             case R.id.popupMenuItem1:
                 Toast.makeText(this, " Contextual Menu 1 clicked", Toast.LENGTH_SHORT).show();
@@ -193,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             case R.id.popupMenuItem4:
                 Toast.makeText(this, "Contextual Menu 4 clicked", Toast.LENGTH_SHORT).show();
-                return true;;+-
+                return true;
 
             default:
                 return false;
