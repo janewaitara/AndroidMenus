@@ -2,19 +2,80 @@ package com.example.androidmenus;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 
 import android.os.Bundle;
+
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView menuTitle;
+    Button btnActionModeMenu;
+
+    ActionMode mActionMode;
+
+      //object of the ActionMode class
+
+    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.actionmode_contextual_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            //handle contextual floating menu item click
+            switch(item.getItemId()) {
+                case R.id.actionContextualMenuItem1:
+                    Toast.makeText(MainActivity.this, " Contextual Menu 1 clicked",
+                            Toast.LENGTH_SHORT).show();
+                    mode.finish();//ending the mode before it can start again
+                    return true;
+
+                case R.id.actionContextualMenuItem2:
+                    Toast.makeText(MainActivity.this, "Contextual Menu  2 clicked",
+                            Toast.LENGTH_SHORT).show();
+                    mode.finish();
+                    return true;
+
+                case R.id.actionContextualMenuItem3:
+                    Toast.makeText(MainActivity.this, "Contextual Menu  3 clicked",
+                            Toast.LENGTH_SHORT).show();
+                    return true;
+
+                case R.id.actionContextualMenuItem4:
+                    Toast.makeText(MainActivity.this, "Contextual Menu 4 clicked",
+                            Toast.LENGTH_SHORT).show();
+                    mode.finish();
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+
+            mActionMode = null;
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +84,20 @@ public class MainActivity extends AppCompatActivity {
 
         menuTitle = findViewById(R.id.menuTitle);
         this.registerForContextMenu(menuTitle);//long pressing it will help us get the context menu
+
+        btnActionModeMenu = findViewById(R.id.btnActionModeMenu);
+        btnActionModeMenu.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                if (mActionMode != null) {
+                    return false;
+                }
+
+                mActionMode = startSupportActionMode(mActionModeCallback); //instantiating ActionMode
+                return true;
+            }
+        });
     }
 
 
