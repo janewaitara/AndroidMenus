@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
 
-
+        //INTENT MENUS
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT, "Check out the dynamic menu");
