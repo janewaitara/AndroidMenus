@@ -64,4 +64,32 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.floating_contextual_menu, menu);
     }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        //handle contextual floating menu item click
+        switch(item.getItemId()) {
+            case R.id.contextualFMenuItem1:
+                Toast.makeText(this, " Contextual Menu 1 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.contextualFMenuItem2:
+                Toast.makeText(this, "Contextual Menu  2 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.contextualFMenuItem3:
+                Toast.makeText(this, "Contextual Menu  3 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.contextualFMenuItem4:
+                Toast.makeText(this, "Contextual Menu 4 clicked", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
+
+
+    }
 }
