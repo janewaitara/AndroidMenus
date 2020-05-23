@@ -77,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             case R.id.optionsMenuItem3:
                 Toast.makeText(this, "Menu Item 3 clicked", Toast.LENGTH_SHORT).show();
+                if (item.isChecked()){
+                    Toast.makeText(this, "Is checked", Toast.LENGTH_SHORT).show();
+                }
                 return true;
 
             case R.id.optionsMenuItem4:
