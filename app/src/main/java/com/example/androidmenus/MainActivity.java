@@ -56,7 +56,25 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
+
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, "Check out the dynamic menu");
+
+        //dynamically add intentOptions
+        menu.addIntentOptions(
+                R.id.intent_group, //Menu group to which new items will be added
+                0, //unique item identifier(none)
+                0, //order for the items(none)
+                this.getComponentName(), //current activity name
+                null, //specify items to place first(none)
+                intent, //intent created above that describes our requirements
+                0,  //additional flag to control items(none)
+                null);  //Array of MenuItems that correlates to specific items(none)
+
         return true;
+
     }
 
     // handling the onClicks on the menu
@@ -77,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
             case R.id.optionsMenuItem3:
                 Toast.makeText(this, "Menu Item 3 clicked", Toast.LENGTH_SHORT).show();
+
+                //detect when selected
                 if (item.isChecked()){
                     Toast.makeText(this, "Is checked", Toast.LENGTH_SHORT).show();
                 }
